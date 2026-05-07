@@ -1,0 +1,160 @@
+import java.util.Scanner;
+
+public class UC8_GameLoop {
+
+    // Method to print board
+    public static void printBoard(char[][] board) {
+
+        for (int i = 0; i < 3; i++) {
+
+            for (int j = 0; j < 3; j++) {
+
+                System.out.print(board[i][j] + " ");
+            }
+
+            System.out.println();
+        }
+    }
+
+    // Method to check valid move
+    public static boolean isValidMove(char[][] board, int row, int col) {
+
+        return row >= 0 && row < 3 &&
+               col >= 0 && col < 3 &&
+               board[row][col] == '-';
+    }
+
+    // Method to check win
+    public static boolean checkWin(char[][] board, char symbol) {
+
+        // Check rows
+        for (int i = 0; i < 3; i++) {
+
+            if (board[i][0] == symbol &&
+                board[i][1] == symbol &&
+                board[i][2] == symbol) {
+
+                return true;
+            }
+        }
+
+        // Check columns
+        for (int j = 0; j < 3; j++) {
+
+            if (board[0][j] == symbol &&
+                board[1][j] == symbol &&
+                board[2][j] == symbol) {
+
+                return true;
+            }
+        }
+
+        // Check diagonals
+        if (board[0][0] == symbol &&
+            board[1][1] == symbol &&
+            board[2][2] == symbol) {
+
+            return true;
+        }
+
+        if (board[0][2] == symbol &&
+            board[1][1] == symbol &&
+            board[2][0] == symbol) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    // Method to check draw
+    public static boolean checkDraw(char[][] board) {
+
+        for (int i = 0; i < 3; i++) {
+
+            for (int j = 0; j < 3; j++) {
+
+                if (board[i][j] == '-') {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Initialize board
+        char[][] board = {
+                {'-', '-', '-'},
+                {'-', '-', '-'},
+                {'-', '-', '-'}
+        };
+
+        char currentPlayer = 'X';
+
+        boolean gameOver = false;
+
+        // Game loop
+        while (!gameOver) {
+
+            printBoard(board);
+
+            System.out.println("\nPlayer " + currentPlayer + " Turn");
+
+            // Read slot
+            System.out.print("Enter slot number (1-9): ");
+            int slot = sc.nextInt();
+
+            // Convert slot to row and column
+            int index = slot - 1;
+
+            int row = index / 3;
+            int col = index % 3;
+
+            // Validate move
+            if (isValidMove(board, row, col)) {
+
+                // Place symbol
+                board[row][col] = currentPlayer;
+
+                // Check win
+                if (checkWin(board, currentPlayer)) {
+
+                    printBoard(board);
+
+                    System.out.println("\nPlayer " + currentPlayer + " Wins!");
+
+                    gameOver = true;
+                }
+
+                // Check draw
+                else if (checkDraw(board)) {
+
+                    printBoard(board);
+
+                    System.out.println("\nGame Draw!");
+
+                    gameOver = true;
+                }
+
+                // Switch turns
+                else {
+
+                    if (currentPlayer == 'X') {
+                        currentPlayer = 'O';
+                    } else {
+                        currentPlayer = 'X';
+                    }
+                }
+
+            } else {
+
+                System.out.println("Invalid Move! Try Again.");
+            }
+        }
+    }
+}
