@@ -1,0 +1,46 @@
+import java.util.Random;
+
+public class TicTacToeToss {
+
+    public static void main(String[] args) {
+
+        String player1 = "Player 1";
+        String player2 = "Player 2";
+
+        char symbol1, symbol2;
+        String currentPlayer;
+
+        // Random object for toss
+        Random random = new Random();
+
+        // Generate random number: 0 or 1
+        int toss = random.nextInt(2);
+
+        // Decide who starts first
+        if (toss == 0) {
+
+            currentPlayer = player1;
+
+            symbol1 = 'X';
+            symbol2 = 'O';
+
+            System.out.println(player1 + " wins the toss!");
+            System.out.println(player1 + " gets symbol X");
+            System.out.println(player2 + " gets symbol O");
+
+        } else {
+
+            currentPlayer = player2;
+
+            symbol1 = 'O';
+            symbol2 = 'X';
+
+            System.out.println(player2 + " wins the toss!");
+            System.out.println(player2 + " gets symbol X");
+            System.out.println(player1 + " gets symbol O");
+        }
+
+        // Display current player
+        System.out.println("\nCurrent Player: " + currentPlayer);
+    }
+}
