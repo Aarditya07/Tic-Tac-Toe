@@ -1,0 +1,83 @@
+import java.util.Random;
+
+public class UC7_ComputerMove {
+
+    // Method to check valid move
+    public static boolean isValidMove(char[][] board, int row, int col) {
+
+        // Boundary check
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
+        }
+
+        // Check empty cell
+        return board[row][col] == '-';
+    }
+
+    // Method to print board
+    public static void printBoard(char[][] board) {
+
+        for (int i = 0; i < 3; i++) {
+
+            for (int j = 0; j < 3; j++) {
+
+                System.out.print(board[i][j] + " ");
+            }
+
+            System.out.println();
+        }
+    }
+
+    // Method for computer move
+    public static void computerMove(char[][] board) {
+
+        Random random = new Random();
+
+        int slot, row, col;
+
+        // Keep generating until valid move found
+        while (true) {
+
+            // Generate random slot (1-9)
+            slot = random.nextInt(9) + 1;
+
+            // Convert slot to row and column
+            int index = slot - 1;
+
+            row = index / 3;
+            col = index % 3;
+
+            // Check validity
+            if (isValidMove(board, row, col)) {
+
+                // Place computer symbol
+                board[row][col] = 'O';
+
+                System.out.println("Computer selected slot: " + slot);
+
+                break;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+        // Create and initialize board
+        char[][] board = {
+                {'X', '-', '-'},
+                {'-', 'X', '-'},
+                {'-', '-', '-'}
+        };
+
+        System.out.println("Board Before Computer Move:\n");
+
+        printBoard(board);
+
+        // Computer makes move
+        computerMove(board);
+
+        System.out.println("\nBoard After Computer Move:\n");
+
+        printBoard(board);
+    }
+}
