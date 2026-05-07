@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class UC4_SlotConversion {
+
+    // Method to convert slot number into row and column
+    public static void convertSlot(int slot) {
+
+        // Convert slot (1-9) into zero-based index
+        int index = slot - 1;
+
+        // Calculate row and column
+        int row = index / 3;
+        int col = index % 3;
+
+        // Display result
+        System.out.println("Row Index: " + row);
+        System.out.println("Column Index: " + col);
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Read slot number
+        System.out.print("Enter slot number (1-9): ");
+        int slot = sc.nextInt();
+
+        // Convert slot to row and column
+        convertSlot(slot);
+    }
+}
